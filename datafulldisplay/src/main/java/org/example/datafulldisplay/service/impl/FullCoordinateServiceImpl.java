@@ -31,10 +31,10 @@ public class FullCoordinateServiceImpl extends ServiceImpl<FullCoordinateMapper,
         if (y != null) {
             lambdaQueryWrapper.eq(FullCoordinate::getY, y);
         }
-        if (!local.isEmpty() && local != null) {
+        if (local != null && !local.isEmpty()) {
             lambdaQueryWrapper.eq(FullCoordinate::getCoordinateLocal, local);
         }
-        if (!type.isEmpty() && type != null) {
+        if (local != null && !local.isEmpty()) {
             lambdaQueryWrapper.eq(FullCoordinate::getCoordinateType, type);
         }
         return GlobalResult.ok(this.baseMapper.selectList(lambdaQueryWrapper));

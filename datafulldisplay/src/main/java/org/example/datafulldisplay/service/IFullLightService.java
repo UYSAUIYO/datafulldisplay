@@ -9,5 +9,6 @@ public interface IFullLightService {
     public GlobalResult selectFullLightList(FullLight fullLight);
 
     public GlobalResult addFullLight(FullLight fullLight);
+    GlobalResult getLatestLight();
 
 }

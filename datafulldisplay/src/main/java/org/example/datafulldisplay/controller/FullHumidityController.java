@@ -3,7 +3,6 @@ package org.example.datafulldisplay.controller;
 import org.example.datafulldisplay.domain.FullHumidity;
 import org.example.datafulldisplay.result.GlobalResult;
 import org.example.datafulldisplay.service.IFullHumidityService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -24,5 +23,9 @@ public class FullHumidityController {
     @PostMapping
     public GlobalResult add(@RequestBody FullHumidity fullHumidity) {
         return fullHumidityService.addFullHumidity(fullHumidity);
+    }
+    @GetMapping("/latest")
+    public GlobalResult getLatestHumidity() {
+        return fullHumidityService.getLatestHumidity();
     }
 }

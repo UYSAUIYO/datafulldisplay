@@ -7,10 +7,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-@TableName(value = "full_temperture")
+@TableName(value = "full_temperature")
 @Data
 public class FullTemperature implements Serializable {
-//    private static final long serialVersionUID = 1L;
 
     @TableId(type = IdType.AUTO)
     private Long temperatureId;

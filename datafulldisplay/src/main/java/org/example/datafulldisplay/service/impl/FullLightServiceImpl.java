@@ -8,6 +8,7 @@ import org.example.datafulldisplay.mapper.FullLightMapper;
 import org.example.datafulldisplay.result.GlobalResult;
 import org.example.datafulldisplay.service.IFullLightService;
 import org.example.datafulldisplay.service.ws.FireWebSocketServer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,12 +16,13 @@ import org.springframework.stereotype.Service;
 public class FullLightServiceImpl extends ServiceImpl<FullLightMapper, FullLight> implements IFullLightService {
 
     private FireWebSocketServer webSocketServer;
-
+    @Autowired
+    private FullLightMapper fullLightMapper;
     @Override
     public GlobalResult selectFullLightList(FullLight fullLight) {
         String local = fullLight.getLightLocal();
         LambdaQueryWrapper<FullLight> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        if (!local.isEmpty() && local != null) {
+        if (local != null && !local.isEmpty()) {
             lambdaQueryWrapper.eq(FullLight::getLightLocal, local);
         }
 
@@ -35,5 +37,14 @@ public class FullLightServiceImpl extends ServiceImpl<FullLightMapper, FullLight
             return GlobalResult.ok("新增成功");
         }
         return GlobalResult.errorMsg("新增失败，可能原因：local或type不合法");
+    }
+    @Override
+    public GlobalResult getLatestLight() {
+        FullLight latestLight = fullLightMapper.getLatestLight();
+        if (latestLight != null) {
+            return GlobalResult.ok(latestLight);
+        } else {
+            return GlobalResult.errorMsg("No data found");
+        }
     }
 }

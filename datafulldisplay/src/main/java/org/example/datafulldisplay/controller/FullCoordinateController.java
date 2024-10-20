@@ -17,6 +17,15 @@ public class FullCoordinateController {
         this.fullCoordinateService = fullCoordinateService;
     }
 
+    /**
+     * 获取坐标列表
+     * <p>
+     * 该方法通过GET请求处理坐标列表的查询操作它接受一个FullCoordinate对象作为参数，
+     * 该对象包含了查询所需的条件信息方法返回一个GlobalResult对象，其中包含了查询结果
+     *
+     * @param fullCoordinate 包含查询条件的坐标信息对象，用于指定查询的详细参数
+     * @return 返回一个GlobalResult对象，其中包含根据查询条件获取的坐标列表信息
+     */
     @GetMapping("/list")
     public GlobalResult list(FullCoordinate fullCoordinate) {
         return fullCoordinateService.selectFullCoordinateList(fullCoordinate);

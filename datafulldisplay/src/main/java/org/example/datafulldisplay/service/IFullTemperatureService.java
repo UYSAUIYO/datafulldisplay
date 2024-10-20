@@ -6,8 +6,10 @@ import org.example.datafulldisplay.result.GlobalResult;
 
 public interface IFullTemperatureService {
 
-    public GlobalResult selectFullTemperatureList(FullTemperature fullTemperature);
+    GlobalResult selectFullTemperatureList(FullTemperature fullTemperature);
 
-    public GlobalResult addFullTemperature(FullTemperature fullCoordinate);
+    GlobalResult addFullTemperature(FullTemperature fullCoordinate);
+    GlobalResult getLatestTemperature();
+
 
 }

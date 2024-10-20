@@ -25,4 +25,8 @@ public class FullLightController {
     public GlobalResult add(@RequestBody FullLight fullLight) {
         return fullLightService.addFullLight(fullLight);
     }
+    @GetMapping("/latest")
+    public GlobalResult getLatestLight() {
+        return fullLightService.getLatestLight();
+    }
 }

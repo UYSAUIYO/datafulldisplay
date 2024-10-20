@@ -9,5 +9,5 @@ public interface IFullHumidityService {
     public GlobalResult selectFullHumidityList(FullHumidity fullHumidity);
 
     public GlobalResult addFullHumidity(FullHumidity fullHumidity);
-
+    GlobalResult getLatestHumidity();
 }
