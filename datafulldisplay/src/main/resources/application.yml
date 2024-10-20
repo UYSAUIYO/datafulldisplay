@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: admin
+    url: jdbc:mysql://192.168.10.58:3306/fulldisplaydata?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT
+    hikari:
+      minimum-idle: 3
+      maximum-pool-size: 5
+      max-lifetime: 30000
+  application:
+    name: datafulldisplay
+  servlet:
+    multipart:
+      max-request-size: 1024MB
+      max-file-size: 1024MB
+
+server:
+  port: 8080
+
+mybatis-plus:
+  type-enums-package: com.gry.contribution_system.enums
+  configuration:
+    #    控制台输出日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #    开启驼峰写法
+    map-underscore-to-camel-case: true
+  #    扫描xml
+  mapper-locations: classpath:/mapper/**/*.xml
+  #  配置全局默认主键类型,实体类就不用加 @TableId(value = "id", type = IdType.AUTO)
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+#      logic-delete-field: deleted    如果不想在每个实体都加 @TableLogic这个注解的话，就可以在配置文件加

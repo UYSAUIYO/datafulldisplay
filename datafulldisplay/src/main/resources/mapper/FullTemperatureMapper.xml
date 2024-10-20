@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.datafulldisplay.mapper.FullTemperatureMapper">
+
+    <resultMap id="BaseResultMap" type="org.example.datafulldisplay.domain.FullTemperature">
+        <id property="temperatureId" column="temperature_id" jdbcType="INTEGER"/>
+        <result property="tem" column="tem" jdbcType="DOUBLE"/>
+        <result property="temperatureLocal" column="temperature_local" jdbcType="CHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        temperature_id
+        ,tem,temperature_local
+    </sql>
+    <delete id="deleteFullTemperatureByTemperatureIds" parameterType="String">
+        delete from full_temperature where temperature_id in
+        <foreach item="temperatureId" collection="array" open="(" separator="," close=")">
+            #{temperatureId}
+        </foreach>
+    </delete>
+</mapper>

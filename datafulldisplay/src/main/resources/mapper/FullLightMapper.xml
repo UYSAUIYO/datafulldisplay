@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.datafulldisplay.mapper.FullLightMapper">
+
+    <resultMap id="BaseResultMap" type="org.example.datafulldisplay.domain.FullLight">
+        <id property="lightId" column="light_id" jdbcType="INTEGER"/>
+        <result property="light" column="light" jdbcType="DOUBLE"/>
+        <result property="lightLocal" column="light_local" jdbcType="CHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        light_id
+        ,light,light_local
+    </sql>
+    <delete id="deleteFullLightByLightIds" parameterType="String">
+        delete from full_light where light_id in
+        <foreach item="lightId" collection="array" open="(" separator="," close=")">
+            #{lightId}
+        </foreach>
+    </delete>
+</mapper>

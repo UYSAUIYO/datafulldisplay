@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.datafulldisplay.mapper.FullHumidityMapper">
+
+    <resultMap id="BaseResultMap" type="org.example.datafulldisplay.domain.FullHumidity">
+        <id property="humidityId" column="humidity_id" jdbcType="INTEGER"/>
+        <result property="hum" column="hum" jdbcType="DOUBLE"/>
+        <result property="humidityLocal" column="humidity_local" jdbcType="CHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        humidity_id
+        ,hum,humidity_local
+    </sql>
+    <delete id="deleteFullHumidityByHumidityIds" parameterType="String">
+        delete from full_humidity where humidity_id in
+        <foreach item="humidityId" collection="array" open="(" separator="," close=")">
+            #{humidityId}
+        </foreach>
+    </delete>
+</mapper>

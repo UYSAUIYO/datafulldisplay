@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.datafulldisplay.mapper.FullPersonSumMapper">
+
+    <resultMap type="org.example.datafulldisplay.domain.FullPersonNum" id="FullPersonNumResult">
+        <result property="numId" column="num_id"/>
+        <result property="num" column="num"/>
+    </resultMap>
+
+    <sql id="selectFullCoordinateVo">
+        select num_id, num
+        from full_person_num
+    </sql>
+
+    <delete id="deleteFullCoordinateByCoordinateIds" parameterType="String">
+        delete from full_coordinate where coordinate_id in
+        <foreach item="coordinateId" collection="array" open="(" separator="," close=")">
+            #{coordinateId}
+        </foreach>
+    </delete>
+    <select id="selectSumNum" resultType="java.lang.Integer">
+        SELECT SUM(num)
+        FROM full_person_num
+    </select>
+</mapper>
