@@ -1,14 +1,11 @@
 package org.example.datafulldisplay.controller;
 
 import org.example.datafulldisplay.domain.DTO.FullCoordinateDTO;
-import org.example.datafulldisplay.domain.VO.FullCoordinateVO;
 import org.example.datafulldisplay.result.GlobalResult;
 import org.example.datafulldisplay.service.ImageUploadService;
 import org.example.datafulldisplay.service.ws.FireWebSocketServer;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -22,21 +19,28 @@ public class FullFireController {
         this.webSocketServer = webSocketServer;
     }
 
-    @PostMapping("/uploadImageUrl")
-    public GlobalResult handleImageUpload(@RequestBody FullCoordinateVO fullCoordinateVO) throws Exception {
-        String imageUrl = fullCoordinateVO.getImageUrl();
+    @PostMapping("/uploadImage")
+    public GlobalResult handleImageUpload(@RequestParam("file") MultipartFile file,
+                                          @RequestParam("x") int x,
+                                          @RequestParam("y") int y) throws Exception {
         FullCoordinateDTO coordinateDTO = new FullCoordinateDTO();
-        coordinateDTO.setX(fullCoordinateVO.getX());
-        coordinateDTO.setY(fullCoordinateVO.getY());
+        coordinateDTO.setX(x);
+        coordinateDTO.setY(y);
+
         try {
-            Mono<Long> response = imageUploadService.uploadImageUrl(imageUrl);
+            // 上传图片并获取检测到的火灾数量
+            Mono<Long> response = imageUploadService.uploadImage1(file);
             response.map(responseValue -> {
-                if (responseValue >= 1)
+                if (responseValue >= 1) {
                     coordinateDTO.setType("fire");
+                }
                 return GlobalResult.ok();
             });
+
+            // 通过 WebSocket 发送坐标和火情信息
             webSocketServer.sendInfo(coordinateDTO.toString(), "admin");
-            return GlobalResult.ok();
+
+            return GlobalResult.ok(coordinateDTO);
         } catch (Exception e) {
             return GlobalResult.errorMsg(e.getMessage());
         }
