@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/temperature")
+@CrossOrigin(origins = "*")  // 允许来自指定域的跨域请求
 public class FullTemperatureController {
     private final IFullTemperatureService fullTemperatureService;
 

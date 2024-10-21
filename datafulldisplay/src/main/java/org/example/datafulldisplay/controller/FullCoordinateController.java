@@ -10,6 +10,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/coordinate")
+@CrossOrigin(origins = "*")  // 允许来自指定域的跨域请求
 public class FullCoordinateController {
     private final IFullCoordinateService fullCoordinateService;
 

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/light")
+@CrossOrigin(origins = "*")  // 允许来自指定域的跨域请求
 public class FullLightController {
     private final IFullLightService fullLightService;
 

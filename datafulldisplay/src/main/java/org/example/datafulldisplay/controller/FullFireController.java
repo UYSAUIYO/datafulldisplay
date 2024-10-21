@@ -12,6 +12,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/fire")
+@CrossOrigin(origins = "*")  // 允许来自指定域的跨域请求
 public class FullFireController {
     private final ImageUploadService imageUploadService;
     private final FireWebSocketServer webSocketServer;
