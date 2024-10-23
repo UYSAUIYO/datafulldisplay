@@ -1,12 +1,12 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
+    username: fulldisplaydata
     password: admin
-    url: jdbc:mysql://192.168.10.58:3306/fulldisplaydata?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT
+    url: jdbc:mysql://192.168.10.2:3306/fulldisplaydata?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
     hikari:
       minimum-idle: 3
-      maximum-pool-size: 5
+      maximum-pool-size: 50
       max-lifetime: 30000
   application:
     name: datafulldisplay
@@ -17,6 +17,11 @@ spring:
 
 server:
   port: 8080
+logging:
+  level:
+    com.zaxxer.hikari: off
+    sql: off
+    org.apache.ibatis.session.defaults.DefaultSqlSession: off
 
 mybatis-plus:
   type-enums-package: com.gry.contribution_system.enums

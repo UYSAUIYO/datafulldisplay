@@ -40,3 +40,10 @@ create table full_temperature
     temperature_local char   null
 );
 
+create table full_person_num
+(
+    num_id int auto_increment
+        primary key,
+    num int null,
+    upload_time timestamp default current_timestamp
+);

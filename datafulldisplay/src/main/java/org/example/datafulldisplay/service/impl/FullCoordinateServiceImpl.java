@@ -44,10 +44,10 @@ public class FullCoordinateServiceImpl extends ServiceImpl<FullCoordinateMapper,
     public GlobalResult addFullCoordinate(FullCoordinate fullCoordinate) throws IOException {
         String local = fullCoordinate.getCoordinateLocal();
         String type = fullCoordinate.getCoordinateType();
-        if ((local.equals("A") || local.equals("B")) && (type.equals("ok") || type.equals("warning"))) {
+        if ((local.equals("A") || local.equals("B")) && (type.equals("ok") || type.equals("nok"))) {
             this.save(fullCoordinate);
             String message = fullCoordinate.toString();
-            webSocketServer.sendInfo(message, "admin");
+            CoordinateWebSocketServer.sendInfo(message);
             return GlobalResult.ok("新增成功");
         }
         return GlobalResult.errorMsg("新增失败，可能原因：local或type不合法");
