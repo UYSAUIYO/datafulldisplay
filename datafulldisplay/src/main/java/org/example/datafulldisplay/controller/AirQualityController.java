@@ -57,4 +57,8 @@ public class AirQualityController {
     public GlobalResult getAirQualityByDate(@RequestParam String date) {
         return GlobalResult.ok(airQualityService.getAirQualityByDate(date));
     }
+    @GetMapping("/listByTwoDates")
+    public GlobalResult getAirQualityByTwoDates(@RequestParam String date1, @RequestParam String date2) {
+        return GlobalResult.ok(airQualityService.getAirQualityByTwoDates(date1, date2));
+    }
 }

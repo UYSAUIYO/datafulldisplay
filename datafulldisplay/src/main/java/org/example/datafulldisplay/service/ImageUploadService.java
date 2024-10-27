@@ -1,5 +1,7 @@
 package org.example.datafulldisplay.service;
 
+import com.alibaba.fastjson.JSONObject;
+import org.example.datafulldisplay.controller.FullFireController;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,7 @@ import java.util.Map;
 @Service
 public class ImageUploadService {
 
-    private final WebClient webClient = WebClient.builder().build();
+    private final WebClient webClient = WebClient.create("http://localhost:8080");
 
     /***
      * 使用 webclient 将图片转发到 Python API 进行行人识别
@@ -45,7 +47,7 @@ public class ImageUploadService {
      * @param file 上传的图片文件
      * @return 检测到的 "fire" 数量
      */
-    public Mono<Long> uploadImage1(MultipartFile file) {
+    public Mono<Long> uploadImage1(MultipartFile file,int x,int y) {
         String pythonApiUrl = "http://localhost:8510/predict/fire"; // 火情识别 Python API 地址
 
         return webClient.post()
@@ -61,9 +63,33 @@ public class ImageUploadService {
                 .map(response -> {
                     Map<String, Object> labelCounts = (Map<String, Object>) response.get("label_counts");
                     // 获取 "fire" 标签的数量
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("x", x);
+                    jsonObject.put("y", y);
+                    jsonObject.put("coordinateLocal", "A");
+                    jsonObject.put("coordinateType", "warning");
+                    System.out.println("json信息"+jsonObject);
+                    sendPostRequest(jsonObject.toString());
                     return labelCounts != null && labelCounts.containsKey("fire")
                             ? ((Number) labelCounts.get("fire")).longValue()
                             : 0L;
                 });
+    }
+
+    public void sendPostRequest(String value) {
+        System.out.println(value);
+        // 发送 POST 请求
+        Mono<String> response = webClient.post()
+                .uri("/coordinate")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(value)
+                .retrieve()
+                .bodyToMono(String.class);
+
+        // 处理响应
+        response.subscribe(
+                result -> System.out.println("响应结果: " + result),
+                error -> System.err.println("请求失败: " + error.getMessage())
+        );
     }
 }

@@ -44,7 +44,7 @@ public class FullCoordinateServiceImpl extends ServiceImpl<FullCoordinateMapper,
     public GlobalResult addFullCoordinate(FullCoordinate fullCoordinate) throws IOException {
         String local = fullCoordinate.getCoordinateLocal();
         String type = fullCoordinate.getCoordinateType();
-        if ((local.equals("A") || local.equals("B")) && (type.equals("ok") || type.equals("nok"))) {
+        if ((local.equals("A") || local.equals("B")) && (type.equals("ok") || type.equals("warning"))) {
             this.save(fullCoordinate);
             String message = fullCoordinate.toString();
             CoordinateWebSocketServer.sendInfo(message);

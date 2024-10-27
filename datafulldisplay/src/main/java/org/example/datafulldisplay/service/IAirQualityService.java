@@ -8,4 +8,6 @@ public interface IAirQualityService {
     void insertAirQuality(Integer aqi);
 
     List<AirQuality> getAirQualityByDate(String date);
+
+    List<AirQuality> getAirQualityByTwoDates(String date1, String date2);
 }

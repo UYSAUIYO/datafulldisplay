@@ -4,21 +4,19 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
 
-import java.sql.Timestamp;
 
 @Data
-@TableName("air_quality")
-public class AirQuality {
+@TableName("author_data")
+public class TransitionData {
 
     @TableId(type = IdType.AUTO)
-    private Integer id;
+    private Long numId;
 
-    private Integer aqi; // 空气质量指数，0-500
+    private String title;
 
-    private Double percentage; // 百分比，1-100
-
-    @TableField("upload_time")
-    private Timestamp uploadTime;
+    @TableField(typeHandler = JsonNodeTypeHandler.class)
+    private JsonNode content;
 }

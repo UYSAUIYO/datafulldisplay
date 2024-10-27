@@ -1,10 +1,8 @@
 package org.example.datafulldisplay.domain.DTO;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+
 import lombok.Getter;
 import lombok.Setter;
-import org.example.datafulldisplay.domain.FullCoordinate;
 
 @Setter
 @Getter

@@ -30,6 +30,10 @@ public class AirQualityServiceImpl implements IAirQualityService {
     public List<AirQuality> getAirQualityByDate(String date) {
         return airQualityMapper.selectByDate(date);
     }
+    @Override
+    public List<AirQuality> getAirQualityByTwoDates(String date1, String date2) {
+        return airQualityMapper.selectByTwoDates(date1, date2);
+    }
 
     // 映射 AQI 到百分比的函数
     private double mapAqiToPercentage(int aqi) {

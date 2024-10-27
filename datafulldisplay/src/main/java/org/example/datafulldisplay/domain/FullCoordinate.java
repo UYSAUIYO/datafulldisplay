@@ -10,7 +10,6 @@ import java.io.Serializable;
 @TableName(value = "full_coordinate")
 @Data
 public class FullCoordinate implements Serializable {
-    //private static final long serialVersionUID = 1L;
 
     @TableId(type = IdType.AUTO)
     private Long coordinateId;
