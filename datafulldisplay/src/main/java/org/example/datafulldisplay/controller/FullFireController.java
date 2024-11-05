@@ -1,14 +1,11 @@
 package org.example.datafulldisplay.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import org.example.datafulldisplay.domain.DTO.FullCoordinateDTO;
 import org.example.datafulldisplay.result.GlobalResult;
 import org.example.datafulldisplay.service.ImageUploadService;
 import org.example.datafulldisplay.service.ws.FireWebSocketServer;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;

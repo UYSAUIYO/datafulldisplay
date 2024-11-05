@@ -31,6 +31,15 @@ public class FullCoordinateController {
         return fullCoordinateService.selectFullCoordinateList(fullCoordinate);
     }
 
+    /**
+     * 处理 POST 请求，用于添加完整的坐标信息
+     *
+     * @param fullCoordinate 从请求体中获取的完整坐标信息
+     * @return 返回一个GlobalResult对象，表示操作结果
+     *
+     * 此方法首先将接收到的完整坐标信息保存到数据库中，然后将该信息转换为JSON字符串并打印，
+     * 最后通过WebSocket将信息发送给前端
+     */
     @PostMapping
     public GlobalResult add(@RequestBody FullCoordinate fullCoordinate) throws IOException {
         // 保存坐标信息到数据库

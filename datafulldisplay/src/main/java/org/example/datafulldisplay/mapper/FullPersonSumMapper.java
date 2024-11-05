@@ -9,8 +9,18 @@ import org.example.datafulldisplay.domain.FullPersonNum;
 import java.util.List;
 
 
+/**
+ * FullPersonSumMapper接口扩展了BaseMapper<FullPersonNum>，专注于处理FullPersonNum实体的特定数据库操作
+ * 主要提供了查询总人数、获取所有记录、获取最新记录、按日期查询记录以及按日期范围查询记录的功能
+ */
 public interface FullPersonSumMapper extends BaseMapper<FullPersonNum> {
+    /**
+     * 查询总人数
+     *
+     * @return 返回总人数的整数表示
+     */
     Integer selectSumNum();
+
     // 获取所有记录，按上传时间排序
     @Select("SELECT * FROM full_person_num ORDER BY upload_time")
     List<FullPersonNum> selectAll();

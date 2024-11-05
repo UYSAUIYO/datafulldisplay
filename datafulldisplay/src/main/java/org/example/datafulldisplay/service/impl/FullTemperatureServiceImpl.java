@@ -12,10 +12,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
+/**
+ * 实现温度信息的完整服务接口
+ */
 public class FullTemperatureServiceImpl extends ServiceImpl<FullTemperatureMapper, FullTemperature> implements IFullTemperatureService {
 
     @Autowired
     private FullTemperatureMapper fullTemperatureMapper;
+
+    /**
+     * 根据条件选择温度信息列表
+     * @param fullTemperature 包含查询条件的温度信息对象
+     * @return 包含查询结果的全局结果对象
+     */
     @Override
     public GlobalResult selectFullTemperatureList(FullTemperature fullTemperature) {
         String local = fullTemperature.getTemperatureLocal();
@@ -26,6 +35,10 @@ public class FullTemperatureServiceImpl extends ServiceImpl<FullTemperatureMappe
         return GlobalResult.ok(this.baseMapper.selectList(lambdaQueryWrapper));
     }
 
+    /**
+     * 获取最新的温度信息
+     * @return 包含最新温度信息的全局结果对象，如果没有数据则返回错误消息
+     */
     @Override
     public GlobalResult getLatestTemperature() {
         FullTemperature latestTemperature = fullTemperatureMapper.getLatestTemperature();
@@ -36,7 +49,12 @@ public class FullTemperatureServiceImpl extends ServiceImpl<FullTemperatureMappe
         }
     }
 
-
+    /**
+     * 添加新的温度信息
+     * 只有当温度信息的地点为"A"或"B"时才允许添加
+     * @param fullTemperature 要添加的温度信息对象
+     * @return 表示添加结果的全局结果对象
+     */
     @Override
     public GlobalResult addFullTemperature(FullTemperature fullTemperature) {
         String local = fullTemperature.getTemperatureLocal();
@@ -47,3 +65,4 @@ public class FullTemperatureServiceImpl extends ServiceImpl<FullTemperatureMappe
         return GlobalResult.errorMsg("新增失败，可能原因：local或type不合法");
     }
 }
+

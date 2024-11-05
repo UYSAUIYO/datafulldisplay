@@ -71,26 +71,45 @@ public class FullPersonNumController {
                 // 错误处理：返回错误信息
                 .onErrorResume(e -> Mono.just(GlobalResult.errorMsg(e.getMessage())));
     }
+
     /**
-     * 获取识别人数的列表
+     * 获取人员数量列表
+     *
+     * 通过发送GET请求到"/list"来调用此方法，它将返回一个GlobalResult对象，
+     * 其中包含从fullPersonNumService服务获取的人员数量列表
+     *
+     * @return GlobalResult 包含人员数量列表的全局结果对象
      */
     @GetMapping("/list")
     public GlobalResult getPersonNumList() {
         return fullPersonNumService.getPersonNumList();
     }
 
+
     /**
-     * 获取最新的识别人数
+     * 获取最新的人员数量信息
+     *
+     * 通过GET请求访问"/latest"路径，可以获取到最新的人员数量数据
+     * 此方法调用fullPersonNumService的服务来获取数据，并返回给客户端
+     *
+     * @return GlobalResult 包含最新人员数量信息的全局结果对象
      */
     @GetMapping("/latest")
     public GlobalResult getLatestPersonNum() {
         return fullPersonNumService.getLatestPersonNum();
     }
 
-    // 获取指定日期的人流数据
+    /**
+     * 根据日期获取人员数量列表
+     *
+     * @param date 日期字符串，格式为yyyy-MM-dd
+     * @return 包含人员数量列表的GlobalResult对象
+     */
     @GetMapping("/listByDate")
     public GlobalResult getPersonNumListByDate(@RequestParam String date) {
+        // 调用服务层方法，根据日期获取人员数量列表
         List<FullPersonNum> personNumList = fullPersonNumService.getPersonNumListByDate(date);
+        // 返回包含人员数量列表的GlobalResult对象，表示操作成功
         return GlobalResult.ok(personNumList);
     }
 }

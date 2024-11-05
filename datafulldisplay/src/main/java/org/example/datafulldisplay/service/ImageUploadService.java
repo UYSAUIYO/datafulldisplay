@@ -1,7 +1,6 @@
 package org.example.datafulldisplay.service;
 
 import com.alibaba.fastjson.JSONObject;
-import org.example.datafulldisplay.controller.FullFireController;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -80,7 +79,7 @@ public class ImageUploadService {
         System.out.println(value);
         // 发送 POST 请求
         Mono<String> response = webClient.post()
-                .uri("/coordinate")
+                .uri("http://192.168.10.4:8080/coordinate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(value)
                 .retrieve()
